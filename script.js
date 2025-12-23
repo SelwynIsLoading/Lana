@@ -107,10 +107,20 @@ const REQUIRED_ATTEMPTS = 20;
 function showCryingMeme(scale = 1) {
     cryingMeme.classList.add('show');
     
-    // Set the scale based on attempts
-    const currentScale = 1 + (clickAttempts * 0.15); // Grows by 0.15x each click
+    // Check if mobile
+    const isMobile = window.innerWidth <= 640;
+    
+    // Set the scale based on attempts (smaller growth on mobile)
+    const scaleMultiplier = isMobile ? 0.1 : 0.15; // Slower growth on mobile
+    const currentScale = 1 + (clickAttempts * scaleMultiplier);
     cryingMeme.style.setProperty('--meme-scale', currentScale);
-    cryingFace.style.fontSize = `${8 + (clickAttempts * 1.5)}rem`; // Grows font size too
+    
+    // Font size growth (smaller on mobile)
+    const baseFontSize = isMobile ? 5 : 8;
+    const fontSizeGrowth = isMobile ? 0.8 : 1.5;
+    const maxFontSize = isMobile ? 12 : 38; // Cap the size on mobile
+    const fontSize = Math.min(baseFontSize + (clickAttempts * fontSizeGrowth), maxFontSize);
+    cryingFace.style.fontSize = `${fontSize}rem`;
     
     // Keep crying for 3 seconds
     if (cryingInterval) {
