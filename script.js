@@ -95,20 +95,104 @@ yesBtn.addEventListener('click', () => {
     noBtn.style.opacity = '0.6';
 });
 
-// No button handler
-noBtn.addEventListener('click', () => {
-    const messages = [
-        'No worries naman! 😊',
-        'All good! Hit me up if you change your mind ✨',
-        'Cool, no pressure lang!'
-    ];
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+// Button movement removed - button stays in place
+
+// Crying meme functionality
+const cryingMeme = document.getElementById('cryingMeme');
+const cryingFace = cryingMeme.querySelector('.crying-face');
+let cryingInterval = null;
+let clickAttempts = 0;
+const REQUIRED_ATTEMPTS = 20;
+
+function showCryingMeme(scale = 1) {
+    cryingMeme.classList.add('show');
     
-    responseMessage.textContent = randomMessage;
-    responseMessage.className = 'response-message no show';
+    // Set the scale based on attempts
+    const currentScale = 1 + (clickAttempts * 0.15); // Grows by 0.15x each click
+    cryingMeme.style.setProperty('--meme-scale', currentScale);
+    cryingFace.style.fontSize = `${8 + (clickAttempts * 1.5)}rem`; // Grows font size too
     
-    // Send notification
-    sendResponse('No');
+    // Keep crying for 3 seconds
+    if (cryingInterval) {
+        clearTimeout(cryingInterval);
+    }
+    
+    cryingInterval = setTimeout(() => {
+        cryingMeme.classList.remove('show');
+    }, 3000);
+}
+
+function startContinuousCrying() {
+    // Show crying meme with current scale
+    showCryingMeme();
+    
+    // Keep showing it every 2 seconds
+    const cryLoop = setInterval(() => {
+        if (!cryingMeme.classList.contains('show')) {
+            showCryingMeme();
+        }
+    }, 2000);
+    
+    // Stop after 10 seconds total
+    setTimeout(() => {
+        clearInterval(cryLoop);
+        cryingMeme.classList.remove('show');
+    }, 10000);
+}
+
+// Show crying meme when button is clicked (no movement)
+noBtn.addEventListener('mousedown', (e) => {
+    // Show crying meme
+    showCryingMeme();
+});
+
+// No button handler - requires 20 attempts
+noBtn.addEventListener('click', (e) => {
+    clickAttempts++;
+    
+    // Show crying meme when clicked, bigger each time
+    startContinuousCrying();
+    
+    // Show attempt counter in response message
+    const attemptsLeft = REQUIRED_ATTEMPTS - clickAttempts;
+    if (attemptsLeft > 0) {
+        const attemptMessages = [
+            `Wait... that's only attempt ${clickAttempts} 😅`,
+            `Hmm, try ${attemptsLeft} more times maybe?`,
+            `Attempt ${clickAttempts}... keep going!`,
+            `You're at ${clickAttempts}... almost there!`,
+            `${attemptsLeft} more to go! 😊`
+        ];
+        const randomMessage = attemptMessages[Math.floor(Math.random() * attemptMessages.length)];
+        
+        responseMessage.textContent = randomMessage;
+        responseMessage.className = 'response-message no show';
+    }
+    
+    // After 20 attempts, process the "No" response
+    if (clickAttempts >= REQUIRED_ATTEMPTS) {
+        const messages = [
+            'Okay fine, you really tried! 😅',
+            'You\'re persistent! 😊',
+            'Alright, you win this round!'
+        ];
+        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+        
+        responseMessage.textContent = randomMessage;
+        responseMessage.className = 'response-message no show';
+        
+        // Send notification
+        sendResponse('No');
+        
+        // Disable buttons
+        yesBtn.disabled = true;
+        noBtn.disabled = true;
+        
+        // Stop crying after a moment
+        setTimeout(() => {
+            cryingMeme.classList.remove('show');
+        }, 5000);
+    }
 });
 
 // Confetti effect
