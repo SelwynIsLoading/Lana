@@ -424,14 +424,67 @@ body {
     .btn {
         width: 100%;
         min-width: unset;
+        padding: 0.9rem 2rem;
+        font-size: 1rem;
     }
     
     .button-container {
         flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .message {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .question-container {
+        padding: 1.25rem;
+        margin: 2rem 0;
+    }
+    
+    .sub-question {
+        font-size: 0.9rem;
     }
     
     .crying-face {
-        font-size: 6rem;
+        font-size: 5rem;
+        max-width: 90vw;
+    }
+    
+    .crying-meme {
+        max-width: 90vw;
+        max-height: 90vh;
+        overflow: hidden;
+    }
+    
+    .response-message {
+        font-size: 1.1rem;
+        padding: 1.25rem;
+    }
+    
+    .heart-animation {
+        font-size: 2.5rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 400px) {
+    .content {
+        padding: 1.5rem 1rem;
+    }
+    
+    .title {
+        font-size: 1.75rem;
+    }
+    
+    .crying-face {
+        font-size: 4rem;
+    }
+    
+    .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.95rem;
     }
 }
 
