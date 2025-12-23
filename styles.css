@@ -121,6 +121,13 @@ body {
     justify-content: center;
     margin-top: 2.5rem;
     flex-wrap: wrap;
+    position: relative;
+    min-height: 60px;
+}
+
+/* When button moves to viewport, ensure it's visible */
+.btn-no[style*="position: fixed"] {
+    margin: 0 !important;
 }
 
 .btn {
@@ -177,12 +184,17 @@ body {
     border: 2px solid #e9ecef;
     flex: 1;
     min-width: 180px;
+    position: relative;
+    transition: transform 0.1s ease, scale 0.1s ease;
 }
 
 .btn-no:hover {
     background: #f8f9fa;
     border-color: #dee2e6;
-    transform: translateY(-2px);
+}
+
+.btn-no.running-away {
+    transition: transform 0.3s ease, scale 0.3s ease;
 }
 
 .btn-continue {
@@ -297,6 +309,101 @@ body {
     }
 }
 
+/* Crying meme styles */
+.crying-meme {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    --meme-scale: 1;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 10001;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.crying-meme.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(var(--meme-scale, 1));
+    animation: cryShake 0.5s ease-in-out infinite;
+}
+
+.crying-face {
+    font-size: 8rem;
+    text-align: center;
+    animation: cryBounce 0.6s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    transition: font-size 0.3s ease;
+}
+
+.tears {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.tear {
+    position: absolute;
+    font-size: 2rem;
+    animation: tearFall 1s ease-in infinite;
+    opacity: 0;
+}
+
+.tear:nth-child(1) {
+    left: 20%;
+    animation-delay: 0s;
+}
+
+.tear:nth-child(2) {
+    left: 40%;
+    animation-delay: 0.2s;
+}
+
+.tear:nth-child(3) {
+    left: 60%;
+    animation-delay: 0.4s;
+}
+
+.tear:nth-child(4) {
+    left: 80%;
+    animation-delay: 0.6s;
+}
+
+@keyframes cryShake {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(var(--meme-scale, 1)) rotate(0deg);
+    }
+    25% {
+        transform: translate(-50%, -50%) scale(calc(var(--meme-scale, 1) * 1.05)) rotate(-2deg);
+    }
+    75% {
+        transform: translate(-50%, -50%) scale(calc(var(--meme-scale, 1) * 1.05)) rotate(2deg);
+    }
+}
+
+@keyframes cryBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes tearFall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(150px) scale(0.5);
+    }
+}
+
 @media (max-width: 640px) {
     .container {
         padding: 1rem;
@@ -321,6 +428,10 @@ body {
     
     .button-container {
         flex-direction: column;
+    }
+    
+    .crying-face {
+        font-size: 6rem;
     }
 }
 
