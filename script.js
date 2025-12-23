@@ -79,7 +79,7 @@ async function sendResponse(answer) {
 
 // Yes button handler
 yesBtn.addEventListener('click', () => {
-    responseMessage.textContent = 'Nice! ✨ Let\'s figure out the details na!';
+    responseMessage.textContent = 'Nice! ✨ Let\'s set the date na!';
     responseMessage.className = 'response-message yes show';
     
     // Send notification
