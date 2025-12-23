@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Something special for you ✨</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="content" id="mainContent">
+            <div class="heart-animation">✨</div>
+            <h1 class="title" id="mainTitle">Hey Lana!</h1>
+            <p class="message" id="mainMessage">So... I may have gotten a bit creative 😅</p>
+            <button class="btn btn-continue" id="continueBtn">Let's see →</button>
+        </div>
+        
+        <div class="content hidden" id="step1">
+            <div class="heart-animation">💭</div>
+            <h1 class="title">Okay, real talk</h1>
+            <p class="message">You've been on my mind lately</p>
+            <p class="message">And I'm curious about you ✨</p>
+            <button class="btn btn-continue" id="step1Btn">Keep going →</button>
+        </div>
+        
+        <div class="content hidden" id="step2">
+            <div class="heart-animation">💭</div>
+            <h1 class="title">Here's the thing</h1>
+            <p class="message">I think it'd be cool to hang out</p>
+            <p class="message">No pressure lang, just vibes 😊</p>
+            <button class="btn btn-continue" id="step2Btn">→</button>
+        </div>
+        
+        <div class="content hidden" id="step3">
+            <div class="heart-animation">✨</div>
+            <h1 class="title">So... what do you say?</h1>
+            <div class="question-container">
+                <p class="question">Want to grab coffee or something?</p>
+                <p class="sub-question">Or food? Or literally anything? Your call 😊</p>
+            </div>
+            <div class="button-container">
+                <button class="btn btn-yes" id="yesBtn">Sure, why not! ✨</button>
+                <button class="btn btn-no" id="noBtn">Maybe another time</button>
+            </div>
+            <div class="response-message" id="responseMessage"></div>
+        </div>
+        
+        <div class="floating-hearts">
+            <span class="floating-heart">✨</span>
+            <span class="floating-heart">⭐</span>
+            <span class="floating-heart">✨</span>
+            <span class="floating-heart">⭐</span>
+            <span class="floating-heart">✨</span>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
